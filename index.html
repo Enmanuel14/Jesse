@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Para ti 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--rosa:#ff7eb6;--rosa2:#ffc2dd;--lila:#b980f0;--uva:#5b2a86;--noche:#2d1245;--crema:#fff4fa}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Quicksand,system-ui,sans-serif;color:var(--noche);background:linear-gradient(170deg,#ffd9ec 0%,#ead3ff 55%,#d9c2ff 100%);background-attachment:fixed;overflow-x:hidden}
+h1,h2,.script{font-family:'Dancing Script',cursive;color:var(--uva)}
+h2{font-size:clamp(2.2rem,7vw,3.4rem);text-align:center;margin-bottom:.4rem}
+.sub{text-align:center;opacity:.75;margin-bottom:2rem}
+section{padding:4.5rem 1.2rem;max-width:1000px;margin:auto}
+
+/* Intro */
+#intro{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;background:linear-gradient(160deg,#ffc2dd,#c9a2f5);transition:opacity 1s,visibility 1s;cursor:pointer;text-align:center;padding:1rem}
+#intro.out{opacity:0;visibility:hidden}
+#heart{width:min(62vw,280px);filter:drop-shadow(0 12px 24px #5b2a8666);animation:beat 1.4s infinite}
+#heart path{fill:#ff9ccb;transition:fill .6s}
+#intro.on #heart{animation:pop .9s}
+#intro.on #heart path{fill:#e0143c}
+#intro p{font-family:'Dancing Script',cursive;font-size:1.9rem;color:var(--noche);transition:opacity .4s}
+#intro.on p{opacity:0}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.1)}30%{transform:scale(1)}45%{transform:scale(1.07)}}
+@keyframes pop{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1.1)}}
+.burst{position:fixed;z-index:60;pointer-events:none;font-size:1.6rem;animation:fly 1.6s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--x),var(--y)) scale(.4) rotate(var(--r));opacity:0}}
+
+/* Principal */
+#main{display:none}
+#main.show{display:block;animation:in 1.2s}
+@keyframes in{from{opacity:0}to{opacity:1}}
+.rain{position:fixed;top:-2rem;z-index:0;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(40deg);opacity:.2}}
+section,header{position:relative;z-index:1}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s}
+.rv.in{opacity:1;transform:none}
+
+header{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem 1rem}
+header h1{font-size:clamp(3.2rem,15vw,7.5rem);line-height:1;color:var(--uva);text-shadow:0 4px 0 #fff8,0 0 30px #ff7eb688}
+header .nombre{font-family:'Dancing Script',cursive;font-size:clamp(2rem,9vw,4rem);color:#d6247a;margin:.4rem 0 1.2rem}
+header p{max-width:30ch;font-size:1.1rem}
+.flecha{margin-top:2rem;font-size:2rem;animation:bob 1.6s infinite;text-decoration:none}
+@keyframes bob{50%{transform:translateY(10px)}}
+
+/* Contador */
+.cuenta{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem;max-width:520px;margin:auto}
+.cuenta div{background:#ffffffb0;border-radius:22px;padding:1rem .3rem;text-align:center;box-shadow:0 8px 24px #b980f033}
+.cuenta b{display:block;font-size:clamp(1.5rem,6vw,2.3rem);color:#d6247a}
+.cuenta span{font-size:.8rem}
+
+/* Fotos */
+.galeria{columns:2 150px;gap:.8rem}
+.galeria figure{break-inside:avoid;margin-bottom:.8rem;border-radius:18px;overflow:hidden;background:#fff;padding:.5rem .5rem .3rem;box-shadow:0 8px 22px #5b2a8630;cursor:zoom-in;transition:transform .3s}
+.galeria figure:nth-child(odd){transform:rotate(-1.5deg)}
+.galeria figure:nth-child(even){transform:rotate(1.5deg)}
+.galeria figure:hover{transform:rotate(0) scale(1.03)}
+.galeria img{width:100%;display:block;border-radius:12px;min-height:120px;background:linear-gradient(135deg,#ffc2dd,#c9a2f5)}
+.galeria figcaption{font-family:'Dancing Script',cursive;font-size:1.25rem;text-align:center;padding:.4rem 0;color:var(--uva)}
+#lb{position:fixed;inset:0;z-index:70;background:#2d1245e6;display:none;align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:1rem;cursor:zoom-out}
+#lb.open{display:flex}
+#lb img{max-width:94vw;max-height:78vh;border-radius:16px}
+#lb p{font-family:'Dancing Script',cursive;font-size:1.8rem;color:#fff}
+
+/* Frases */
+.frase-box{background:#ffffffb8;border-radius:30px;padding:2.5rem 1.5rem;text-align:center;box-shadow:0 12px 36px #b980f033;min-height:230px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.4rem}
+#frase{font-family:'Dancing Script',cursive;font-size:clamp(1.7rem,6vw,2.5rem);color:var(--uva);line-height:1.3;max-width:24ch;transition:opacity .5s}
+.nav{display:flex;gap:.8rem;align-items:center}
+button{font:inherit;cursor:pointer;border:0;border-radius:99px;padding:.7rem 1.4rem;background:linear-gradient(135deg,var(--rosa),var(--lila));color:#fff;font-weight:700;box-shadow:0 6px 16px #b980f055;transition:transform .2s}
+button:hover{transform:scale(1.06)}
+button:focus-visible,#lb:focus-visible{outline:3px solid var(--uva);outline-offset:3px}
+
+/* Carta */
+.sobre{width:min(100%,360px);height:230px;margin:2rem auto 0;position:relative;cursor:pointer}
+.sobre .cuerpo{position:absolute;inset:0;background:linear-gradient(135deg,#ff9ccb,#c08af5);border-radius:14px;box-shadow:0 14px 30px #5b2a8644}
+.sobre .tapa{position:absolute;left:0;right:0;top:0;height:60%;background:linear-gradient(160deg,#ffb3d6,#b980f0);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .8s;z-index:3}
+.sobre .sello{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);font-size:2.4rem;z-index:4;transition:opacity .4s}
+.sobre.open .tapa{transform:rotateX(180deg);z-index:0}
+.sobre.open .sello{opacity:0}
+.sobre .t{position:absolute;bottom:-3rem;width:100%;text-align:center;font-family:'Dancing Script',cursive;font-size:1.4rem}
+#papel{max-height:0;overflow:hidden;opacity:0;transition:max-height 1.4s,opacity 1s,margin 1s;background:#fffdf7;border-radius:18px;box-shadow:0 12px 36px #5b2a8633;margin-top:0}
+#papel.open{max-height:2200px;opacity:1;margin-top:4rem}
+#papel .in{padding:2rem 1.6rem}
+#carta{font-family:'Dancing Script',cursive;font-size:clamp(1.35rem,4.6vw,1.75rem);line-height:1.55;white-space:pre-wrap;color:#4a2370}
+
+/* Videos */
+.videos{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.2rem}
+.videos .v{background:#fff;padding:.6rem;border-radius:22px;box-shadow:0 10px 26px #5b2a8633}
+.videos video{width:100%;border-radius:15px;background:linear-gradient(135deg,#ffc2dd,#c9a2f5);aspect-ratio:9/16;max-height:70vh;object-fit:cover}
+.videos p{font-family:'Dancing Script',cursive;font-size:1.3rem;text-align:center;padding:.5rem 0 .2rem}
+
+/* Razones */
+.razon{background:#ffffffb8;border-radius:30px;padding:2rem 1.5rem;text-align:center;box-shadow:0 12px 36px #b980f033}
+#razon{font-size:1.25rem;font-weight:500;min-height:4.5rem;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem}
+
+/* Línea de tiempo */
+.linea{position:relative;margin-left:1.2rem;border-left:3px dashed var(--lila);padding-left:1.6rem;display:grid;gap:1.6rem}
+.hito{position:relative;background:#ffffffb8;border-radius:20px;padding:1rem 1.2rem;box-shadow:0 8px 22px #b980f02e}
+.hito::before{content:"💗";position:absolute;left:calc(-1.6rem - 14px);top:1rem;background:var(--crema);border-radius:50%;font-size:1.1rem;line-height:1}
+.hito b{color:#d6247a}
+
+/* Final */
+#fin{text-align:center;padding-bottom:7rem}
+#fin h2{font-size:clamp(2.6rem,11vw,5rem)}
+#fin p{max-width:32ch;margin:1rem auto 1.6rem}
+#musica{position:fixed;right:14px;bottom:14px;z-index:40;width:48px;height:48px;padding:0;font-size:1.3rem;display:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="intro" role="button" tabindex="0" aria-label="Toca el corazón">
+  <svg id="heart" viewBox="0 0 32 29"><path d="M23.6 0c-2.7 0-5.1 1.3-6.6 3.4C15.500 1.300 13.100 0 10.400 0 4.700 0 0 4.700 0 10.400c0 10.500 16 18.600 16 18.600s16-8.100 16-18.600C32 4.700 29.300 0 23.600 0z" transform="translate(0 0)"/></svg>
+  <p>Toca el corazón</p>
+</div>
+
+<div id="lb"><img id="lbi" alt=""><p id="lbc"></p></div>
+<button id="musica" aria-label="Música">🎵</button>
+<audio id="aud" loop></audio>
+
+<div id="main">
+  <header>
+    <h1 class="script">Feliz cumpleaños</h1>
+    <div class="nombre" id="nom"></div>
+    <p>Hice este rincón solo para ti. Baja despacio, hay mucho amor esperándote.</p>
+    <a class="flecha" href="#juntos" aria-label="Bajar">💖</a>
+  </header>
+
+  <section id="juntos" class="rv">
+    <h2>Nuestro tiempo juntos</h2>
+    <p class="sub">Cada segundo contigo cuenta</p>
+    <div class="cuenta">
+      <div><b id="cd">0</b><span>días</span></div>
+      <div><b id="ch">0</b><span>horas</span></div>
+      <div><b id="cm">0</b><span>minutos</span></div>
+      <div><b id="cs">0</b><span>segundos</span></div>
+    </div>
+  </section>
+
+  <section id="fotos" class="rv">
+    <h2>Nuestros momentos</h2>
+    <p class="sub">Toca una foto para verla grande</p>
+    <div class="galeria" id="gal"></div>
+  </section>
+
+  <section id="frases" class="rv">
+    <h2>Lo que quiero decirte</h2>
+    <p class="sub">Frases que salen del corazón</p>
+    <div class="frase-box">
+      <div id="frase"></div>
+      <div class="nav"><button id="ant" aria-label="Anterior">‹</button><span id="pos"></span><button id="sig" aria-label="Siguiente">›</button></div>
+    </div>
+  </section>
+
+  <section id="carta-s" class="rv">
+    <h2>Una carta para ti</h2>
+    <p class="sub">Toca el sobre para abrirlo</p>
+    <div class="sobre" id="sobre" role="button" tabindex="0" aria-label="Abrir carta"><div class="cuerpo"></div><div class="tapa"></div><div class="sello">💌</div></div>
+    <div id="papel"><div class="in"><div id="carta"></div></div></div>
+  </section>
+
+  <section id="videos" class="rv">
+    <h2>Recuerdos en movimiento</h2>
+    <p class="sub">Pequeños videos que me hacen sonreír</p>
+    <div class="videos" id="vid"></div>
+  </section>
+
+  <section id="razones" class="rv">
+    <h2>Razones por las que te amo</h2>
+    <p class="sub">Y siempre hay una más</p>
+    <div class="razon"><div id="razon">Toca el botón 💗</div><button id="otra">Una razón más</button></div>
+  </section>
+
+  <section id="historia" class="rv">
+    <h2>Nuestra historia</h2>
+    <p class="sub">Los capítulos que nos trajeron hasta aquí</p>
+    <div class="linea" id="lin"></div>
+  </section>
+
+  <section id="fin" class="rv">
+    <h2>Te amo</h2>
+    <p id="finmsg"></p>
+    <button id="boom">Toca aquí 🎂</button>
+  </section>
+</div>
+
+<script>
+/* ============ EDITA AQUÍ TODO EL CONTENIDO ============ */
+const CONFIG = {
+  nombre: "Jesse",                       
+  inicioRelacion: "2020-01-19T00:00:00",   
+  musica: "./music.mp3",            
+  fotos: [                                 
+    {src:"./4.jpeg", pie:"Te Amo"},
+    {src:"./3.jpeg", pie:"Esa sonrisa"},
+    {src:"./9.jpeg", pie:"Aventuras juntos"},
+    {src:"./2.jpeg", pie:"Mi lugar favorito eres tú"},
+    {src:"./5.jpeg", pie:"Locuras de nosotros"},
+    {src:"./6.jpeg", pie:"Siempre contigo"}
+  ],
+  frases: [
+    "Contigo aprendí que el hogar no es un lugar, es una persona.",
+    "Eres mi casualidad favorita.",
+    "Gracias por hacer mis días más bonitos solo con existir.",
+    "Si volviera a nacer, te volvería a elegir.",
+    "Tu risa es mi canción favorita.",
+    "Eres mi mejor decisión."
+  ],
+  carta: "Para ti, mi niña hermosa,\n\nNo sé si existen las palabras suficientes para expresar todo lo que siento por ti, pero hoy quiero intentarlo.\n\nHemos pasado por tantas cosas juntos… momentos maravillosos, momentos difíciles, distancias, silencios y situaciones que quizás en algún momento nos hicieron pensar que nuestros caminos podían separarse. Sin embargo, aquí seguimos. De una u otra manera, nunca hemos terminado de alejarnos del todo, y quizás eso también dice mucho de lo que significamos el uno para el otro.\n\nQuiero que sepas algo: no me arrepiento de nada de lo que he vivido contigo.Ni de haberte conocido, ni de haberte amado, ni de cada momento que hemos compartido. Si pudiera volver atrás y vivir nuestra historia nuevamente, aun sabiendo todo lo que hemos pasado, volvería a elegirte.\n\nTe amo. Y no quiero que esas dos palabras se queden simplemente en una promesa bonita. Quiero demostrártelo con hechos, con paciencia, con detalles, con respeto y con cada esfuerzo que haga por verte feliz.\n\nQuiero convertirme en un mejor hombre, no solamente por mí, sino porque quiero ofrecerte una versión de mí que esté a la altura del amor que mereces. Quiero esforzarme cada día para darte lo mejor de mí, para cuidarte, apoyarte, escucharte y hacerte sentir lo especial que eres. No puedo prometerte que todo será perfecto, pero sí puedo prometerte que quiero hacer las cosas bien y que no dejaré de esforzarme por nosotros.\n\nLe agradezco a la vida por haberte puesto en mi camino. Eres luz, eres especial. Amo tus ojos, tu sonrisa, tu risa de loca que tanto me encanta, tus ocurrencias, tus enojos, tu manera de ver la vida y, sobre todo, ese corazón tan grande que tienes.\n\nSon tantas las cosas que amo de ti que a veces no sé cómo explicarlas. Simplemente eres tú, con todo lo que eres, con tus virtudes, tus defectos, tus días buenos y tus días difíciles. No quiero solamente los momentos bonitos contigo; quiero acompañarte también en aquellos días en los que no todo esté bien.\n\nQuiero tenerte en mi vida, no por un tiempo, sino por toda la vida. Quiero seguir conociéndote, seguir enamorándome de ti, crear nuevos recuerdos y demostrarte que todavía podemos escribir una historia mucho más bonita que la que hemos vivido hasta ahora.\n\nNo sé qué nos depare el futuro, pero sí sé lo que deseo: verte feliz, ser parte de tus alegrías, darte tranquilidad y convertirme en alguien con quien siempre puedas contar.\n\nGracias por existir, por cada momento, por no desaparecer de mi vida y por ser esa luz tan bonita que, incluso en la distancia, sigue iluminando mis días.\n\nTe quiero hoy, te quiero mañana y deseo seguir eligiéndote todos los días de mi vida.**",
+  videos: [                                // pon tus videos cortos en la carpeta videos/
+    {src:"./7.mp4", pie:"Ese día"},
+    {src:"./8.mp4", pie:"Nuestra locura"}
+  ],
+  razones: [
+    "Porque me haces reír hasta cuando no quiero.",
+    "Porque eres la persona más linda que conozco.",
+    "Porque contigo todo se siente más fácil.",
+    "Porque me eliges tal como soy.",
+    "Porque tu abrazo arregla mi día.",
+    "Porque eres mi persona favorita."
+  ],
+  historia: [
+    
+  {t:"El día que nos conocimos", d:"Sin saberlo, comenzaba una historia que marcaría mi vida."},
+  {t:"Nuestra primera salida", d:"Un recuerdo bonito que siempre llevaré en mi corazón."},
+  {t:"Cuando nos elegimos", d:"El comienzo de una historia que volvería a elegir mil veces."},
+  {t:"Hoy y siempre", d:"Aquí seguimos, con más razones para amarnos y elegirnos."}
+
+  ],
+  mensajeFinal: "Gracias por existir. Que este año sea el más bonito de todos."
+};
+/* ======================================================= */
+
+const $=s=>document.querySelector(s), esc=t=>String(t).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const aud=$('#aud');
+let musicaOn=false;
+
+/* Intro */
+function burst(x,y,n=24,emojis=['💖','💗','💜','💕','❤️']){
+  for(let i=0;i<n;i++){
+    const e=document.createElement('span');e.className='burst';
+    e.textContent=emojis[i%emojis.length];e.style.left=x+'px';e.style.top=y+'px';
+    const a=Math.random()*6.28,d=90+Math.random()*220;
+    e.style.setProperty('--x',Math.cos(a)*d+'px');e.style.setProperty('--y',Math.sin(a)*d+'px');e.style.setProperty('--r',(Math.random()*360-180)+'deg');
+    document.body.appendChild(e);setTimeout(()=>e.remove(),1700);
+  }
+}
+let started=false;
+function empezar(ev){
+  if(started)return;started=true;
+  const r=$('#heart').getBoundingClientRect();
+  $('#intro').classList.add('on');
+  burst(r.left+r.width/2,r.top+r.height/2,30);
+  if(CONFIG.musica){aud.src=CONFIG.musica;aud.play().then(()=>{musicaOn=true;$('#musica').textContent='🎵'}).catch(()=>{});$('#musica').style.display='block'}
+  setTimeout(()=>{$('#intro').classList.add('out');$('#main').classList.add('show');iniciar()},1500);
+}
+$('#intro').addEventListener('click',empezar);
+$('#intro').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')empezar()});
+$('#musica').onclick=()=>{if(musicaOn){aud.pause();musicaOn=false;$('#musica').textContent='🔇'}else{aud.play().catch(()=>{});musicaOn=true;$('#musica').textContent='🎵'}};
+
+function iniciar(){
+  $('#nom').textContent=CONFIG.nombre+' 💖';
+  $('#finmsg').textContent=CONFIG.mensajeFinal;
+
+  /* Corazones cayendo */
+  setInterval(()=>{
+    const e=document.createElement('span');e.className='rain';
+    e.textContent=['💗','💜','💕','🌸'][Math.floor(Math.random()*4)];
+    e.style.left=Math.random()*100+'vw';e.style.fontSize=(.9+Math.random()*1.2)+'rem';
+    e.style.animationDuration=(7+Math.random()*7)+'s';
+    document.body.appendChild(e);setTimeout(()=>e.remove(),14500);
+  },900);
+
+  /* Contador */
+  const ini=new Date(CONFIG.inicioRelacion).getTime();
+  const tick=()=>{let s=Math.max(0,Math.floor((Date.now()-ini)/1000));
+    $('#cd').textContent=Math.floor(s/86400);$('#ch').textContent=Math.floor(s%86400/3600);
+    $('#cm').textContent=Math.floor(s%3600/60);$('#cs').textContent=s%60};
+  tick();setInterval(tick,1000);
+
+  /* Fotos */
+  $('#gal').innerHTML=CONFIG.fotos.map((f,i)=>`<figure data-i="${i}"><img src="${esc(f.src)}" alt="${esc(f.pie)}" loading="lazy" onerror="this.style.minHeight='180px';this.removeAttribute('src')"><figcaption>${esc(f.pie)}</figcaption></figure>`).join('');
+  $('#gal').addEventListener('click',e=>{const f=e.target.closest('figure');if(!f)return;const x=CONFIG.fotos[f.dataset.i];if(!f.querySelector('img').getAttribute('src'))return;$('#lbi').src=x.src;$('#lbc').textContent=x.pie;$('#lb').classList.add('open')});
+  $('#lb').onclick=()=>$('#lb').classList.remove('open');
+
+  /* Frases */
+  let fi=0;const fr=CONFIG.frases;
+  const ver=()=>{const el=$('#frase');el.style.opacity=0;setTimeout(()=>{el.textContent='“'+fr[fi]+'”';$('#pos').textContent=(fi+1)+' / '+fr.length;el.style.opacity=1},300)};
+  let auto;const rearmar=()=>{clearInterval(auto);auto=setInterval(()=>{fi=(fi+1)%fr.length;ver()},6000)};
+  $('#sig').onclick=()=>{fi=(fi+1)%fr.length;ver();rearmar()};
+  $('#ant').onclick=()=>{fi=(fi-1+fr.length)%fr.length;ver();rearmar()};
+  ver();rearmar();
+
+  /* Carta */
+  let abierta=false;
+  const abrir=()=>{if(abierta)return;abierta=true;$('#sobre').classList.add('open');
+    setTimeout(()=>{$('#papel').classList.add('open');let i=0;const el=$('#carta'),t=CONFIG.carta;
+      (function w(){el.textContent=t.slice(0,++i);if(i<t.length)setTimeout(w,38)})()},800)};
+  $('#sobre').onclick=abrir;$('#sobre').onkeydown=e=>{if(e.key==='Enter'||e.key===' ')abrir()};
+
+  /* Videos */
+  $('#vid').innerHTML=CONFIG.videos.map(v=>`<div class="v"><video src="${esc(v.src)}" controls playsinline preload="metadata"></video><p>${esc(v.pie)}</p></div>`).join('');
+  document.querySelectorAll('video').forEach(v=>v.addEventListener('play',()=>{document.querySelectorAll('video').forEach(o=>{if(o!==v)o.pause()});if(musicaOn)aud.pause()}));
+
+  /* Razones */
+  let ult=-1;
+  $('#otra').onclick=e=>{let k;do{k=Math.floor(Math.random()*CONFIG.razones.length)}while(k===ult&&CONFIG.razones.length>1);ult=k;$('#razon').textContent=CONFIG.razones[k];burst(e.clientX,e.clientY,8)};
+
+  /* Historia */
+  $('#lin').innerHTML=CONFIG.historia.map(h=>`<div class="hito"><b>${esc(h.t)}</b><br>${esc(h.d)}</div>`).join('');
+
+  /* Final */
+  $('#boom').onclick=()=>{for(let i=0;i<6;i++)setTimeout(()=>burst(innerWidth*(.15+Math.random()*.7),innerHeight*(.2+Math.random()*.5),22,['🎉','💖','🎂','✨','💜']),i*250)};
+
+  /* Aparición al bajar */
+  const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(s=>io.observe(s));
+}
+</script>
+</body>
+</html>
